@@ -42,7 +42,10 @@ class SingleBlogView(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUES)
 
-    def delete():        
+    def delete(self,request,id):  
+        blog=self.get_single_blog(id) 
+        blog.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)     
 
 
 
