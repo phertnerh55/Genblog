@@ -45,7 +45,8 @@ class SingleBlogView(APIView):
     def delete(self,request,id):  
         blog=self.get_single_blog(id) 
         blog.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)     
+        return Response(status=status.HTTP_204_NO_CONTENT
+)     
 
 
 
