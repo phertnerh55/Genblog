@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer"
 import Hero from "@/components/hero"
 import HeroContent from "@/components/herocontent"
 import Nav from "@/components/nav"
@@ -7,6 +8,7 @@ function Home(){
       <Nav/>
       <Hero/>
       <HeroContent/>
+      <Footer/>
     </div>
   
   )

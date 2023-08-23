@@ -44,7 +44,7 @@ function HeroContent() {
                 <p className=" text-[#0A91F2] mb-3">
                   By {blog.author} | {blog.date_published} | 0 Comments
                 </p>
-                <Link href={`blogs/${blogs.id}`}>
+                <Link href={`blogs/${blog.id}`}>
                   {" "}
                   <button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#1EB9EA] border-[#0A91F2]">
                     {" "}
