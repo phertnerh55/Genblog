@@ -6,15 +6,16 @@ import { BsTwitter } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
 function Footer() {
   return (
-    <div>
+    <div className="m-3">
     <div className="container mx-auto">
       <h3 className="font-bold text-center text-2xl">
         JOIN OUR COMMUNITY OF OVER{" "}
         <span className="text-[#0775C6] mb-5">200,000</span> BLOGGERS
       </h3>
-      <div className=" my-5 shadow  w-[60%]">
-        <input placeholder="Email Address" className="outline-0" />
-        <button>Subscribe</button>
+      
+      <div className=" my-5 shadow  w-[60%] mx-auto flex justify-between">
+        <input placeholder="Email Address" type="email" className="p-4 outline-0" />
+        <button className="text-white bg-[#0775C6] p-4">Subscribe</button>
       </div>
       <div className="flex justify-around my-7">
         <div>
