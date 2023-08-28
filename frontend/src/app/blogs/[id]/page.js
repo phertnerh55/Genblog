@@ -70,8 +70,8 @@ function SingleBlog({ params }) {
       </div>
       <div>
         <div className="flex items-center justify-center gap-5 my-4">
-          <button onClick={(e)=>handleDelete(e)}>Delete</button>
-          <button> Edit</button>
+          <button onClick={(e)=>handleDelete(e)} className="bg-red-500 border-2 text-white shadow w-15% py-2 px-10">Delete</button>
+          <button className="border-2 border-[#0775C6] shadow text-[#0775C6]"> Edit</button>
 
         </div>
         <h3 className="text-[#0775C6] text-center">Place your comment</h3>
