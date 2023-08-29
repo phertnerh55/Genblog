@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
+# models create objects
 def upload_to(instance,filename):
     return "blogs/{filename}".format(filename=filename)
     

@@ -4,9 +4,31 @@ import profile from "../../../public/images/profile.png";
 import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import axios from "axios";
+
 function Login() {
-  const [user, setUser] = useState([]);
-  
+  const loginUrl = "http://127.0.0.1:8000/api/token/";
+  const [userData, setUserData] = useState({});
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+  function handleLogin(e) {
+    e.preventDefault();
+    console.log(userData);
+    axios.post(loginUrl, {
+        username: userData.username,
+        password: userData.password,
+      }).then((response) => {
+        console.log(response);
+localStorage.setItem("username",(response.data.username))
+localStorage.setItem("email",(response.data.email))
+localStorage.setItem("access",(response.data.access))
+localStorage.setItem("refresh",(response.data.refresh))
+
+      });
+
+    
+  }
 
   return (
     <div>
@@ -27,20 +49,27 @@ function Login() {
           <div>
             <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto mt-5">
               <input
+                onChange={(e) => handleChange(e)}
                 type="text"
                 className="outline-0 p-5 bg-transparent w-[100%] "
-                placeholder="Email Address"
+                placeholder="Username"
+                name="username"
               />
             </div>
             <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto my-5">
               <input
+                onChange={(e) => handleChange(e)}
                 type="password"
                 className="outline-0 p-5 bg-transparent w-[100%] "
                 placeholder="Password"
+                name="password"
               />
             </div>
             <div className="flex justify-center mb-10 mt-9">
-              <button className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded ">
+              <button
+                onClick={(e) => handleLogin(e)}
+                className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded "
+              >
                 Log in
               </button>
             </div>
