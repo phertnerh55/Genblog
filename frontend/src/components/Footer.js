@@ -6,7 +6,7 @@ import { BsTwitter } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
 function Footer() {
   return (
-    <div className="m-3">
+    <div className="">
     <div className="container mx-auto">
       <h3 className="font-bold text-center text-2xl">
         JOIN OUR COMMUNITY OF OVER{" "}

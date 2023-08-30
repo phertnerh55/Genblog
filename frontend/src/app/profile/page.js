@@ -1,12 +1,16 @@
-'use client'
+"use client";
 import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
 import avatar from "../../../public/images/avatar.png";
 import Image from "next/image";
 import { FaEnvelope, FaFacebookF } from "react-icons/fa";
 import { BsTwitter } from "react-icons/bs";
+import { StateContext } from "@/context/state";
+import { useContext } from "react";
 
 function Profile() {
+  const { isLogin, setIsLogin } = useContext(StateContext);
+
   return (
     <div>
       <Nav />
@@ -15,7 +19,9 @@ function Profile() {
           <div className=" w-[100px] h-[100px] rounded-[50%] flex items-center bg-black ">
             <Image src={avatar} className="w-[100%] h-[100%]" />
           </div>
-          <h2 className="text-[#0775C6] text-4xl font-bold">{localStorage.getItem('username')}</h2>
+          <h2 className="text-[#0775C6] text-4xl font-bold">
+            {isLogin.username}
+          </h2>
         </div>
         <div className="underline"></div>
         <div className=" flex gap-10">

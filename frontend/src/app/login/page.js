@@ -7,10 +7,11 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "@/context/state";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const { isLogin, setIsLogin } = useContext(StateContext);
-
+const router=useRouter()
   const [userData, setUserData] = useState({});
   const loginUrl = "http://127.0.0.1:8000/api/token/";
   const handleChange = (e) => {
@@ -33,6 +34,7 @@ function Login() {
         // console.log(isLogin.is_loggedin);
         if (response.status === 200) {
           isLogin.is_loggedin=true;
+          router.push('/')
         }
       });
   }
@@ -73,12 +75,12 @@ function Login() {
               />
             </div>
             <div className="flex justify-center mb-10 mt-9">
-            <Link href={'/'}> <button
+             <button
                 onClick={(e) => handleLogin(e)}
                 className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded "
               >
                 Log in
-              </button></Link> 
+              </button>
             </div>
             <div className="flex justify-between mx-auto w-[70%] my-5">
               <div className="flex gap-3 items-center">

@@ -7,6 +7,10 @@ import { StateContext } from "@/context/state";
 
 function Nav() {
   const { isLogin, setIsLogin } = useContext(StateContext);
+  if(isLogin.is_loggedin){
+    isLogin.username=localStorage.getItem("username")
+    isLogin.email=localStorage.getItem("email")
+  }
   return (
     <div className="container mx-auto flex justify-between items-center p-2">
       <Link href={"/"}>
@@ -29,9 +33,9 @@ function Nav() {
               <p className="cursor-pointer">Write A Blog</p>
             </Link>
             <Link href={"/profile"}> <p>My Profile</p></Link>
-            <button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold">
+            <Link href={"/logout"}><button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold">
               Logout
-            </button>
+            </button></Link>
           </div>
         ) : (
           <div className="flex  gap-5 items-center">
