@@ -1,11 +1,15 @@
-'use client'
+"use client";
 import Image from "next/image";
 import profile from "../../../public/images/profile.png";
 import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import { StateContext } from "@/context/state";
 
 function SignUp() {
+  const { isSignUp, setIsSignUp } = useContext(StateContext);
+  const signupUrl = "http://127.0.0.1:8000/api/user/create/";
   const [userData, setUserData] = useState({});
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -13,6 +17,15 @@ function SignUp() {
   function handleLogin(e) {
     e.preventDefault();
     console.log(userData);
+    axios
+      .post(signupUrl, {
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+      })
+      .then((response) => {
+        console.log(response);
+      });
   }
   return (
     <div>
@@ -32,15 +45,17 @@ function SignUp() {
           </div>
           <div>
             <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto mt-5">
-              <input  onChange={(e) => handleChange(e)}
+              <input
+                onChange={(e) => handleChange(e)}
                 type="text"
                 className="outline-0 p-5 bg-transparent w-[100%] "
-                placeholder="Fullname"
-                name="fullname"
+                placeholder="Username"
+                name="username"
               />
             </div>
             <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto mt-5">
-              <input  onChange={(e) => handleChange(e)}
+              <input
+                onChange={(e) => handleChange(e)}
                 type="email"
                 className="outline-0 p-5 bg-transparent w-[100%] "
                 placeholder="Email Address"
@@ -48,33 +63,19 @@ function SignUp() {
               />
             </div>
             <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto my-5">
-              <input  onChange={(e) => handleChange(e)}
+              <input
+                onChange={(e) => handleChange(e)}
                 type="password"
                 className="outline-0 p-5 bg-transparent w-[100%] "
                 placeholder="Password"
                 name="password"
               />
             </div>
-            <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto my-5">
-              <input  onChange={(e) => handleChange(e)}
-                type="password"
-                className="outline-0 p-5 bg-transparent w-[100%] "
-                placeholder="Confirm Password"
-                name="password"
-              />
-            </div>
-            <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto my-5">
-              <input  onChange={(e) => handleChange(e)}
-                type="text"
-                className="outline-0 p-5 bg-transparent w-[100%] "
-                placeholder="Phone Number"
-                name="number"
-              />
-            </div>
-            
-        
             <div className="flex justify-center mb-10 mt-9">
-              <button  onClick={(e) => handleLogin(e)} className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded ">
+              <button
+                onClick={(e) => handleLogin(e)}
+                className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded "
+              >
                 SignUP
               </button>
             </div>

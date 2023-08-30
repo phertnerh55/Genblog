@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import axios from "axios";
 import Image from "next/image";
-import avatar from "../../public/images/avatar.png";
+// import avatar from "../../public/images/avatar.png";
 import { useRouter } from "next/navigation";
 function SingleBlog({ params }) {
   const [singleBlog, setSingleBlog] = useState();
