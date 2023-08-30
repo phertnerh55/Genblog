@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Footer from "@/components/Footer";
 import Nav from "@/components/nav";
 import Link from "next/link";
@@ -6,18 +6,27 @@ import { StateContext } from "@/context/state";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
-
 function LogOut() {
-    const{isLogin,setIsLogin}=useContext(StateContext)
-    const router=useRouter()
-  function handleLogOut(e) {
-localStorage.clear()
-setIsLogin({
-    is_loggedin:false,
-    username:"",
-    email:"",
-})
-router.push('/')
+  const router = useRouter();
+  const { isLogin, setIsLogin } = useContext(StateContext);
+
+  function handleLogOut() {
+    localStorage.clear();
+    setIsLogin({
+      is_loggedin: false,
+      username: "",
+      email: "",
+    });
+    router.push("/");
+  }
+  function handleCancel() {
+    localStorage.clear();
+    setIsLogin({
+      is_loggedin: false,
+      username: "",
+      email: "",
+    });
+    router.push("/");
   }
 
   return (
@@ -28,19 +37,16 @@ router.push('/')
           Do You Want To LogOut?
         </h1>
         <div className="flex gap-5 justify-center items-center my-3">
-          <Link href={""}>
-            <button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold">
-              Cancel
-            </button>
-          </Link>
-          <Link href={""}>
-            <button
-              onClick={(e) => handleLogOut(e)}
-              className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold"
-            >
-              LogOut
-            </button>
-          </Link>
+          <button onClick={handleCancel} className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold">
+            Cancel
+          </button>
+
+          <button
+            onClick={handleLogOut}
+            className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold"
+          >
+            LogOut
+          </button>
         </div>
       </div>
       <Footer className="flex-1" />

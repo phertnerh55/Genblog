@@ -11,6 +11,7 @@ function Nav() {
     isLogin.username=localStorage.getItem("username")
     isLogin.email=localStorage.getItem("email")
   }
+  
   return (
     <div className="container mx-auto flex justify-between items-center p-2">
       <Link href={"/"}>

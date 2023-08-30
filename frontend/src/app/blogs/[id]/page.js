@@ -1,14 +1,14 @@
 "use client";
 import Nav from "@/components/nav";
-
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import axios from "axios";
 import Image from "next/image";
-// import avatar from "../../public/images/avatar.png";
+import avatar from "../../../../public/images/avatar.png";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 function SingleBlog({ params }) {
-  const [singleBlog, setSingleBlog] = useState();
+  const [singleBlog, setSingleBlog] = useState({});
   const url = `http://127.0.0.1:8000/api/blogs/${params.id}`;
   let imageUrl = "http://127.0.0.1:8000/api";
   const router = useRouter();
@@ -19,15 +19,18 @@ function SingleBlog({ params }) {
       })
       .then((data) => {
         setSingleBlog(data);
-        console.log(data);
+        
       });
-  });
+  },[]);
+  console.log(singleBlog);
   const date = new Date(singleBlog.date_published);
   const year = date.getFullYear();
   const month = date.toLocaleString("default", { month: "long" });
   const day = date.getDay();
   const formatted_date = `${day} ${month} ${year}`;
   console.log(month);
+
+  
   function handleDelete(e) {
     e.preventDefault();
     axios.delete(url, singleBlog).then((response) => {
@@ -38,6 +41,7 @@ function SingleBlog({ params }) {
   return (
     <div>
       <Nav />
+      
       <div className="container mx-auto my-5">
         <h2 className="text-[#0775C6] font-bold text-4xl">
           {singleBlog.blogTitle}
@@ -65,7 +69,7 @@ function SingleBlog({ params }) {
         <div>
           <p
             className="my-3"
-            dangerouslySetInnerHTML={{ _html: `${singleBlog.blogpost}` }}
+            dangerouslySetInnerHTML={{__html: `${singleBlog.blogPost}` }}
           ></p>
         </div>
         <div>
@@ -76,10 +80,10 @@ function SingleBlog({ params }) {
             >
               Delete
             </button>
-            <button className="border-2 border-[#0775C6] shadow text-[#0775C6]">
+          <Link href={`/blogs/${params.id}/edit`}> <button className="border-2 border-[#0775C6] shadow text-[#0775C6]">
               {" "}
               Edit
-            </button>
+            </button></Link> 
           </div>
           <h3 className="text-[#0775C6] text-center">Place your comment</h3>
           <textarea

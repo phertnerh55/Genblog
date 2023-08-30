@@ -6,11 +6,13 @@ import Footer from "@/components/Footer";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "@/context/state";
+import { useRouter } from "next/navigation";
 
 function SignUp() {
   const { isSignUp, setIsSignUp } = useContext(StateContext);
   const signupUrl = "http://127.0.0.1:8000/api/user/create/";
   const [userData, setUserData] = useState({});
+  const router=useRouter()
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -26,6 +28,7 @@ function SignUp() {
       .then((response) => {
         console.log(response);
       });
+      router.push('/login')
   }
   return (
     <div>
