@@ -1,48 +1,150 @@
-'use client'
+"use client";
 import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { Axios } from "axios";
+import axios from "axios";
 import { useRouter } from "next/navigation";
+import { StateContext } from "@/context/state";
 
 function NewBlog() {
+  const router = useRouter();
+  const url = "http://127.0.0.1:8000/api/blogs/";
+  const { isLogin, setIsLogin } = useContext(StateContext);
+
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      return editorRef.current.getContent();
+    }
+  };
+  const [newBlog, setNewBlog] = useState({
+    blogTitle: "",
+    blogPost: "",
+    author: "",
+    blogImage: null,
+  });
+  useEffect(() => {
+    setNewBlog((prev) => ({ ...prev, author: isLogin.username }));
+  }, []);
+  const [formErrors, setFormErrors] = useState({});
+  function handleAdd(e) {
+    e.preventDefault();
+
+    const addErrors = {};
+    (newBlog.blogTitle === undefined || newBlog.blogTitle === "") &&
+      (addErrors.blog_blogTitletitle = "Please enter your  blog title");
+    (newBlog.blogImage === undefined || newBlog.blogImage === "") &&
+      (addErrors.blogImage = "Please enter your blog image");
+    (newBlog.blogPost === undefined || newBlog.blogPost === "") &&
+      (addErrors.blogPost = "Please enter your enter your blog post");
+    (newBlog.author === undefined || newBlog.author === "") &&
+      (addErrors.author = "Please  your name or name of the author");
+    setFormErrors(addErrors);
+    console.log(newBlog);
+  }
+
+  const newFormData = new FormData();
+  newFormData.append("blogTitle", newBlog.blogTitle);
+  newFormData.append("blogPost", newBlog.blogPost);
+  newFormData.append("author", newBlog.author);
+  if (newBlog.blogImage != null) {
+    newFormData.append = ("blogImage", newBlog.blogImage);
+  }
+  axios.post(url, newFormData).then((response) => {
+    console.log(response);
+    router.push("/");
+  });
+
   return (
     <div>
       <Nav />
-      <div className="bg-[#0775C6] h-[70vh]">
+      <div className="bg-[#0775C6] p-3">
         <h1 className="text-white text-center font-bold text-3xl ">
           CREATE A POST
         </h1>
-        <div className="w-[50%] bg-white mx-auto p-4 rounded-3xl my-[3em] ">
-          <div className=" shadow border-gray-300 border-2 w-[70%] rounded mx-auto mt-5">
-            <input
-              type="text"
-              className="outline-0 p-5 bg-transparent w-[100%] "
-              placeholder="Blog Title"
+        <div className="bg-[#0775C6] p-3">
+          <div className="w-[50%] bg-white mx-auto p-2 rounded-3xl my-[3em]  ">
+            <div className=" shadow border-gray-300 border-2 w-[70%] rounded mx-auto my-5">
+              <input
+                onChange={(e) =>
+                  setNewBlog({ ...newBlog, blogTitle: e.target.value })
+                }
+                type="text"
+                className="outline-0 p-5 bg-transparent w-[100%] "
+                name="blogTitle"
+                placeholder="Blog Title"
+              />
+            </div>
+            <div className=" shadow border-gray-300 border-2 w-[70%] rounded mx-auto my-5">
+              <input
+                onChange={(e) =>
+                  setNewBlog({ ...newBlog, blogImage: e.target.files[0] })
+                }
+                type="file"
+                name="blogImage"
+                className="outline-0 p-5 bg-transparent w-[100%]"
+                placeholder
+              />
+            </div>
+            <Editor
+              onEditorChange={(e) =>
+                setNewBlog({ ...newBlog, blogPost: log() })
+              }
+              apiKey="vjc1fyped6oyo7788777cc3uj333koulc2weq8l51hdwaf5y"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              initialValue=""
+              init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "help",
+                  "wordcount",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | help",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
             />
-          </div>
-          <div className=" shadow border-gray-300 border-2 w-[70%] rounded mx-auto my-5">
-            <input
-              type="file"
-              className="outline-0 p-5 bg-transparent w-[100%] "
-            />
-          </div>
-
-          <div>
-            
-          </div>
-          <div className=" shadow border-gray-300  border-2 w-[70%] rounded mx-auto my-5">
-            <input
-              type="text"
-              className="outline-0 p-5 bg-transparent w-[100%] "
-              placeholder="Blog Author"
-            />
-          </div>
-          <div className="flex justify-center mb-10 mt-9">
-            <button className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded ">
-              Submit
-            </button>
+            {/* <div className=" shadow border-gray-300 border-2 w-[70%] rounded mx-auto my-5">
+              <input
+                onChange={(e) =>
+                  setNewBlog({ ...newBlog, author: e.target.value })
+                }
+                type="text "
+                name="author"
+                className="outline-0 p-5 bg-transparent w-[100%] "
+                placeholder="Blog author"
+              />
+            </div> */}
+            <div className="flex justify-center mb-10 mt-9">
+              <button
+                onClick={(e) => handleAdd(e)}
+                className=" p-4   shadow font-bold text-center text-2xl w-[70%] mx-auto text-white bg-[#0775C6] rounded "
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>

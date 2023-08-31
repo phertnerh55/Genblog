@@ -42,13 +42,13 @@ function SingleBlog({ params }) {
     <div>
       <Nav />
       
-      <div className="container mx-auto my-5">
+      <div className="container mx-auto my-10">
         <h2 className="text-[#0775C6] font-bold text-4xl">
           {singleBlog.blogTitle}
         </h2>
         <div clasName="flex justify-between items-center ">
           <div className="flex items-center gap-2">
-            <div className="bg-red-500 w-[100px]">
+            <div className=" w-[100px]">
               <Image src={avatar} className="" />
             </div>
             <div>
@@ -63,7 +63,7 @@ function SingleBlog({ params }) {
         <div className="">
           <img
             src={`${imageUrl}${singleBlog.blogImage}`}
-            className="w-[100%] h-[80vh]"
+            className="w-[100%] h-[60vh] rounded-lg"
           />
         </div>
         <div>
@@ -76,20 +76,22 @@ function SingleBlog({ params }) {
           <div className="flex items-center justify-center gap-5 my-4">
             <button
               onClick={(e) => handleDelete(e)}
-              className="bg-red-500 border-2 text-white shadow w-15% py-2 px-10"
+              className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold hover:bg-red-500 hover:text-white"
             >
               Delete
             </button>
-          <Link href={`/blogs/${params.id}/edit`}> <button className="border-2 border-[#0775C6] shadow text-[#0775C6]">
+          <Link href={`/blogs/${params.id}/edit`}> <button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold">
               {" "}
               Edit
             </button></Link> 
           </div>
           <h3 className="text-[#0775C6] text-center">Place your comment</h3>
-          <textarea
+          <div className="flex justify-center">
+          <textarea cols={70} rows={5}
             placeholder="Enter your comment"
             className="border-2 border-[#0775C6] rounded-lg shadow p-3"
           />
+          </div>
         </div>
       </div>
       <Footer />

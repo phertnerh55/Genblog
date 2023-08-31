@@ -6,10 +6,31 @@ import Image from "next/image";
 import { FaEnvelope, FaFacebookF } from "react-icons/fa";
 import { BsTwitter } from "react-icons/bs";
 import { StateContext } from "@/context/state";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 
 function Profile() {
+
   const { isLogin, setIsLogin } = useContext(StateContext);
+  const [blogs, setBlogs] = useState([]);
+  const url = "http://127.0.0.1:8000/api/blogs/";
+  let imageUrl = "http://127.0.0.1:8000/api";
+  const [myBlogs, setMyBlogs] = useState([]);
+  useEffect(() => {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setBlogs(data);
+      });
+  }, []);
+  console.log(blogs);
+  blogs.forEach((blog) => {
+    if (blog.author === isLogin.username) {
+      myBlogs.push(blog)
+    }
+    console.log(myBlogs)
+  });
 
   return (
     <div>
@@ -41,23 +62,28 @@ function Profile() {
           </div>
           <div className="flex-1">
             <h2 className="text-[#0775C6] text-3xl font-bold mb-3">My Blogs</h2>
+            {myBlogs.map((blog)=>{
+              return(
             <div>
               <div className="w-[100%] mb-5 flex items-start justify-start gap-2">
-                <div className="w-[20%] h-[10vh] bg-black">
-                  <Image src={avatar} className="w-[100%] h-[100%]" />
+                <div className="w-[20%] h-[10vh] rounded-lg">
+                <img
+                  src={`${imageUrl}${blog.blogImage}`}
+                  className="w-[100%] h-[100%] rounded-lg"
+                />
                 </div>
                 <div className="w-80%">
                   <h1 className="text-black font-bold ">
-                    Lorem Ipsum es simplemente...
+                    {blog.blogTitle}
                   </h1>
                   <p className="mb-3">
-                    Lorem Ipsum es simplemente el texto de relleno de
-                    las...Lorem Ipsum es simplemente el texto de relleno de
-                    las...
+                    {blog.blogPost}
                   </p>
                 </div>
               </div>
             </div>
+              )
+            })}
             <p className="text-[#0775C6] text-2xl  my-3 text-end">All Blogs</p>
           </div>
         </div>

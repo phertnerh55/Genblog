@@ -20,7 +20,7 @@ class BlogView(APIView):
         if (serializers.is_valid()):
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)
-        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUES)
+        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class SingleBlogView(APIView):
     def get_single_blog(self,id): 
@@ -41,7 +41,7 @@ class SingleBlogView(APIView):
         if(serializer.is_valid()):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUES)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,id):  
         blog=self.get_single_blog(id) 
