@@ -32,8 +32,8 @@ function LogOut() {
   return (
     <div className="flex h-[100vh] flex-col">
       <Nav className="flex-1" />
-      <div className="bg-[#0775C6]">
-        <div className="flex-1 justify-center items-center my-3">
+      <div className="flex-1 mt-[10vh]">
+        <div className="flex-1 justify-center items-center mt-[4em]">
           <h1 className="text-black font-bold text-4xl text-center my-3">
             Do You Want To LogOut?
           </h1>

@@ -4,6 +4,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { BsTwitter } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
+import { AiOutlineCopyrightCircle} from "react-icons/ai";
 function Footer() {
   return (
     <div className="">
@@ -13,13 +14,15 @@ function Footer() {
         <span className="text-[#0775C6] mb-5">200,000</span> BLOGGERS
       </h3>
       
-      <div className=" my-5 shadow  w-[60%] mx-auto flex justify-between">
+      <div className=" my-5 shadow-[0_0_5px_lightgray]  w-[60%] mx-auto flex justify-between">
         <input placeholder="Email Address" type="email" className="p-4 outline-0" />
         <button className="text-white bg-[#0775C6] p-4">Subscribe</button>
       </div>
-      <div className="flex justify-around my-7">
+      <div className="flex justify-between my-7">
         <div>
-          <Image src={logo} className="mb-3" />
+          <div className="flex justify-center">
+          <Image src={logo} className="mb-3 w-[200px]"  />
+          </div>
           <p className="text-center mb-3">Follow Us On:</p>
           <div className="flex justify-center gap-4 mb-3">
             <FaFacebookF  size={40}/>
@@ -55,7 +58,7 @@ function Footer() {
       </div>
     </div>
     <div className="bg-[#D9D9D9] flex justify-center items-center gap-4 p-4">
-        <p>Copyright @ 2023</p>
+        <p className="flex items-center gap-1">Copyright <AiOutlineCopyrightCircle/> 2023</p>
         <p>genblog.com</p>
         <p>. All rights reserved</p>
 
@@ -64,4 +67,3 @@ function Footer() {
   );
 }
 export default Footer;
-// D9D9D9

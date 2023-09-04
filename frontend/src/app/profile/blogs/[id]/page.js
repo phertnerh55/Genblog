@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import axios from "axios";
 import Image from "next/image";
-import avatar from "../../../../public/images/avatar.png";
+import avatar from "../../../../../public/images/avatar.png";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 function SingleBlog({ params }) {
@@ -42,11 +42,11 @@ function SingleBlog({ params }) {
     <div>
       <Nav />
       
-      <div className="container mx-auto mb-10 mt-[10vh]">
-        <h2 className="text-[#0775C6] font-bold text-4xl">
+      <div className="container mx-auto my-10">
+        <h2 className="text-[#0775C6] font-bold text-4xl text-center">
           {singleBlog.blogTitle}
         </h2>
-        <div clasName="flex justify-between items-center ">
+        <div clasName="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className=" w-[100px]">
               <Image src={avatar} className="" />
@@ -73,7 +73,18 @@ function SingleBlog({ params }) {
           ></p>
         </div>
         <div>
-         
+          <div className="flex items-center justify-center gap-5 my-4">
+            <button
+              onClick={(e) => handleDelete(e)}
+              className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold hover:bg-red-500 hover:text-white"
+            >
+              Delete
+            </button>
+          <Link href={`/profile/blogs/${params.id}/edit`}> <button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold">
+              {" "}
+              Edit
+            </button></Link> 
+          </div>
           <h3 className="text-[#0775C6] text-center">Place your comment</h3>
           <div className="flex justify-center">
           <textarea cols={70} rows={5}

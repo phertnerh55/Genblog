@@ -5,9 +5,10 @@ import Nav from "@/components/nav"
 function Home(){
   return(
     <div>
+      <p>yrduchtt</p>
       <Nav/>
-      <Hero/>
-      <HeroContent/>
+    <Hero/>
+        <HeroContent/>
       <Footer/>
     </div>
   

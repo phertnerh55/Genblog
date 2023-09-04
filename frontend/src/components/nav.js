@@ -13,7 +13,8 @@ function Nav() {
   }
   
   return (
-    <div className="container mx-auto flex justify-between items-center p-2">
+    <div className="bg-white fixed top-0 right-0 left-0 h-[10vh]">
+    <div className="container mx-auto flex justify-between items-center py-2">
       <Link href={"/"}>
         {" "}
         <div className="cursor-pointer">
@@ -57,6 +58,7 @@ function Nav() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

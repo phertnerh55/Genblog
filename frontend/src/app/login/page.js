@@ -42,7 +42,7 @@ const router=useRouter()
   return (
     <div>
       <Nav />
-      <div className="bg-[#0775C6] h-[80vh]">
+      <div className="bg-[#0775C6] h-[80vh] mt-[10vh]">
         <h1 className="text-white text-center font-bold text-3xl ">
           LOGIN TO YOUR ACCOUNT
         </h1>

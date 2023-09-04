@@ -33,7 +33,7 @@ function SignUp() {
   return (
     <div>
       <Nav />
-      <div className="bg-[#0775C6] h-[100vh]">
+      <div className="bg-[#0775C6] h-[100vh] mt-[10vh]">
         <h1 className="text-white text-center font-bold text-3xl ">
           CREATE YOUR ACCOUNT
         </h1>

@@ -68,7 +68,7 @@ function Edit({ params }) {
     axios.put(url, newFormData).then((response) => {
       console.log(response);
       if (response.status === 200) {
-        router.push(`/blogs/${params.id}`);
+        router.push(`/profile/blogs/${params.id}`);
       }
     });
   }
@@ -165,8 +165,8 @@ function Edit({ params }) {
             >
               Save Changes
             </button>
-           <Link href={`/blogs/${params.id}`}><button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold  hover:bg-[#0775C6] hover:text-white">
-              Cancel
+           <Link href={`/profile/blogs/${params.id}`}><button className="border-2 rounded-md px-10 text-center py-2 shadow text-[#0775C6] font-bold  hover:bg-[#0775C6] hover:text-white">
+              Discard Changes
             </button>
             </Link> 
 

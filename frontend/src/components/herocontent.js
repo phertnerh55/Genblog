@@ -8,6 +8,7 @@ import Link from "next/link";
 
 function HeroContent() {
   const [blogs, setBlogs] = useState([]);
+  const [formattedDate, setFormattedDate] = useState("");
   const url = "http://127.0.0.1:8000/api/blogs/";
   let imageUrl = "http://127.0.0.1:8000/api";
 
@@ -19,30 +20,41 @@ function HeroContent() {
       .then((data) => {
         // console.log(data);
         setBlogs(data);
-        // console.log(blogs)
+        data.forEach((blogDate)=>{
+          const date = new Date(blogDate.date_published);
+          const year = date.getFullYear();
+          const month = date.toLocaleString("default", { month: "long" });
+          const day = date.getDay();
+          setFormattedDate(`${day} ${month} ${year}`);
+        })
       });
   }, []);
   console.log(blogs);
   return (
     // <div className="container mx-auto">
-    <div className="w-[100%] flex gap-8 my-5 container mx-auto items-start">
+    <div className="w-[100%] flex gap-8 my-6 container mx-auto items-start">
       <div className="w-[70%] ">
         {blogs.map((blog) => {
           return (
-            <div className="w-[100%] border-2 border-[#0A91F2] rounded-lg p-2 flex gap-5 mb-5">
-              <div className="w-[40%] h-[200px] rounded-lg">
+            <div className=" shadow-[0_0_5px_lightgray] rounded-lg p-2 flex gap-5 mb-5">
+              <div className="w-[300px] h-[200px] rounded-lg">
                 <img
                   src={`${imageUrl}${blog.blogImage}`}
                   className="w-[100%] h-[100%] rounded-lg"
                 />
               </div>
-              <div className="w-60%">
-                <h1 className="text-[#0775C6] text-4xl my-3">
-                  {blog.blogTitle}{" "}
+              <div className="w-[70%]">
+                <h1 className="text-[#0775C6] text-[1.4rem] mb-2">
+                  {blog.blogTitle}
                 </h1>
-                <p className="mb-3">{blog.blogPost}</p>
+                <p
+                  className="mb-2"
+                  dangerouslySetInnerHTML={{
+                    __html: `${blog.blogPost.substr(0, 500)}...`,
+                  }}
+                ></p>
                 <p className=" text-[#0A91F2] mb-3">
-                  By {blog.author} | {blog.date_published} | 0 Comments
+                  By {blog.author} | {formattedDate} | 0 Comments
                 </p>
                 <Link href={`blogs/${blog.id}`}>
                   {" "}
@@ -56,7 +68,7 @@ function HeroContent() {
           );
         })}
       </div>
-      <div className="w-[30%] border-2 border-[#0A91F2] rounded-lg p-3">
+      <div className="w-[30%] shadow-[0_0_5px_lightgray] rounded-lg p-3">
         <div className="shadow p-2 my-3 flex gap-2 items-center">
           <AiOutlineSearch />
           <input placeholder="search" className="outline-0" />

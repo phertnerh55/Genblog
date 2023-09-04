@@ -59,7 +59,7 @@ function NewBlog() {
   return (
     <div>
       <Nav />
-      <div className="bg-[#0775C6] p-3">
+      <div className="bg-[#0775C6] p-3 mt-[10vh]">
         <h1 className="text-white text-center font-bold text-3xl ">
           CREATE A POST
         </h1>

@@ -7,9 +7,9 @@ import { FaEnvelope, FaFacebookF } from "react-icons/fa";
 import { BsTwitter } from "react-icons/bs";
 import { StateContext } from "@/context/state";
 import { useContext, useState, useEffect } from "react";
+import Link from "next/link";
 
 function Profile() {
-
   const { isLogin, setIsLogin } = useContext(StateContext);
   const [blogs, setBlogs] = useState([]);
   const url = "http://127.0.0.1:8000/api/blogs/";
@@ -27,68 +27,87 @@ function Profile() {
   console.log(blogs);
   blogs.forEach((blog) => {
     if (blog.author === isLogin.username) {
-      myBlogs.push(blog)
+      myBlogs.push(blog);
     }
-    console.log(myBlogs)
+    console.log(myBlogs);
   });
 
   return (
-    <div>
-      <Nav />
-      <div className="w-[90%] mx-auto border-2 border-[#54acea] shadow-lg rounded-lg p-5">
-        <div className="flex items-center justify-start gap-3  my-3 ">
-          <div className=" w-[100px] h-[100px] rounded-[50%] flex items-center bg-black ">
-            <Image src={avatar} className="w-[100%] h-[100%]" />
+    <div className="flex flex-col h-[100vh]">
+      <Nav className="flex-1"/>
+      <div className="container mx-auto flex gap-[6em] mt-[10vh] p-2 mb-[2em] flex-1">
+        <div className="shadow-[0_0_5px_lightgray] rounded-lg p-2 ">
+          <div className="flex justify-center ">
+            <div className=" w-[150px] h-[150px] rounded-[50%] ">
+              <Image src={avatar} className="w-[100%] h-[100%]" />
+            </div>
           </div>
-          <h2 className="text-[#0775C6] text-4xl font-bold">
-            {isLogin.username}
-          </h2>
+          <div className="text-center">
+            <h2 className="text-[#0775C6] text-2xl font-bold">
+              {isLogin.username}
+            </h2>
+            <h2 className=" text-gray-500">{isLogin.email}</h2>
+          </div>
+          <div className="flex justify-center gap-4 my-3 ">
+            <FaFacebookF size={30} color="#0775C6" />
+            <BsTwitter size={30} color="#0775C6" />
+            <FaEnvelope size={30} color="#0775C6" />
+          </div>
         </div>
-        <div className="underline"></div>
-        <div className=" flex gap-10">
-          <div className="flex-1">
-            <h2 className="text-[#0775C6] text-3xl font-bold mb-3">Bio</h2>
+        <div>
+          <div className="mb-[1em]">
+            <h2 className="text-black text-ce text-3xl font-bold mb-3">
+              About Me
+            </h2>
             <p>
-              Rafsa here,A Social Media Influencer/Software Engineer. By day, I
-              am a Software Engineer, by night, I’m a Social Media Influencer.
-              Join me on my journey as I try changing my community.Together,
-              Let’s inspire, educate, and connect!”
+              {isLogin.username} here,A Social Media Influencer/Software
+              Engineer. By day, I am a Software Engineer, by night, I’m a Social
+              Media Influencer. Join me on my journey as I try changing my
+              community.Together, Let’s inspire, educate, and connect!” here,A
+              Social Media Influencer/Software Engineer. By day, I am a Software
+              Engineer, by night, I’m a Social Media Influencer. Join me on my
+              journey as I try changing my community.Together, Let’s inspire,
+              educate, and connect!”
             </p>
-            <div className="flex items-center gap-4 my-3">
-              <FaFacebookF size={40} />
-              <BsTwitter size={40} />
-              <FaEnvelope size={40} />
-            </div>
           </div>
-          <div className="flex-1">
-            <h2 className="text-[#0775C6] text-3xl font-bold mb-3">My Blogs</h2>
-            {myBlogs.map((blog)=>{
-              return(
-            <div>
-              <div className="w-[100%] mb-5 flex items-start justify-start gap-2">
-                <div className="w-[20%] h-[10vh] rounded-lg">
-                <img
-                  src={`${imageUrl}${blog.blogImage}`}
-                  className="w-[100%] h-[100%] rounded-lg"
-                />
-                </div>
-                <div className="w-80%">
-                  <h1 className="text-black font-bold ">
-                    {blog.blogTitle}
-                  </h1>
-                  <p className="mb-3">
-                    {blog.blogPost}
-                  </p>
-                </div>
-              </div>
+
+          <div>
+            {/* {(myBlogs):()} */}
+
+            <h2 className="text-3xl font-bold mb-3">My BLogs</h2>
+            <div className="flex gap-4">
+              {myBlogs.map((blog) => {
+                return (
+                  <div className="w-[20%] shadow-[0_0_5px_lightgray] rounded-lg">
+                    <Link href={`/profile/blogs/${blog.id}`}>
+                      <div className="">
+                        <div className="h-[20vh]">
+                          <img
+                            src={`${imageUrl}${blog.blogImage}`}
+                            className="rounded-lg w-[100%] h-[100%]"
+                          />
+                        </div>
+                        <div className="p-3">
+                          <h1 className="text-black font-bold ">
+                            {`${blog.blogTitle.substr(0, 25)}...`}
+                          </h1>
+                          <p
+                            className=""
+                            dangerouslySetInnerHTML={{
+                              __html: `${blog.blogPost.substr(0, 300)}...`,
+                            }}
+                          ></p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
-              )
-            })}
-            <p className="text-[#0775C6] text-2xl  my-3 text-end">All Blogs</p>
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer className="flex-1" />
     </div>
   );
 }
